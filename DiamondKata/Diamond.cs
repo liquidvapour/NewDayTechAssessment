@@ -1,4 +1,6 @@
-﻿namespace DiamondKata;
+﻿using System.Text;
+
+namespace DiamondKata;
 
 public static class Diamond
 {
@@ -24,7 +26,19 @@ public static class Diamond
 
     public static string RenderLine(char character, int maxCharacterCount)
     {
-        throw new NotImplementedException();
+        var line = new StringBuilder();
+        for (int i = 0; i < maxCharacterCount; i++)
+        {
+            var columnIndex = GetColumnIndex(i, maxCharacterCount);
+            line.Append(GetCharacterForColumn(character, columnIndex));
+        }
+
+        return line.ToString();
+    }
+
+    public static int GetColumnIndex(int i, int width)
+    {
+        return Math.Abs(i - width / 2);
     }
 
     public static char GetCharacterForColumn(char c, int i) => c - FirstCharacter == i ? c : ' ';
