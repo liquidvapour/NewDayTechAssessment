@@ -27,7 +27,7 @@ public class DiamondTests
     public void when_told_to_render_line_A_with_max_length_3_will_return_xxAxx()
     {
         var result = Diamond.RenderLine('A', 3);
-        Assert.Equal("  A  ", result);
+        Assert.Equal(" A ", result);
     }
 
     [Theory]
@@ -42,6 +42,22 @@ public class DiamondTests
     public void when_told_to_get_char_for_c_with_len_for_index_will_return(char c, int index, char expected)
     {
         var result = Diamond.GetCharacterForColumn(c, index);
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(0, 3, 1)]
+    [InlineData(1, 3, 0)]
+    [InlineData(2, 3, 1)]
+    [InlineData(0, 5, 2)]
+    [InlineData(1, 5, 1)]
+    [InlineData(2, 5, 0)]
+    [InlineData(3, 5, 1)]
+    [InlineData(4, 5, 2)]
+    public void when_told_to_GetColumnIndex(int i, int width, int expected)
+    {
+        var result = Diamond.GetColumnIndex(i, width);
         Assert.Equal(expected, result);
     }
 }
