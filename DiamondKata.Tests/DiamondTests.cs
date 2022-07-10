@@ -5,8 +5,30 @@ public class DiamondTests
     [Fact]
     public void when_told_to_run_with_A_will_return_A()
     {
-        var result = Diamond.Run("A");
-        Assert.Equal("A", result);
+        var result = Diamond.Run('A');
+        Assert.Equal("A\r\n", result);
+    }
+
+    [Fact]
+    public void when_told_to_run_with_B_will_return_correct_result()
+    {
+        var result = Diamond.Run('B');
+        Assert.Equal(@" A 
+B B
+ A 
+", result);
+    }
+
+    [Fact]
+    public void when_told_to_run_with_C_will_return_correct_result()
+    {
+        var result = Diamond.Run('C');
+        Assert.Equal(@"  A  
+ B B 
+C   C
+ B B 
+  A  
+", result);
     }
 
     [Fact]
@@ -24,10 +46,16 @@ public class DiamondTests
     }
 
     [Fact]
-    public void when_told_to_render_line_A_with_max_length_3_will_return_xxAxx()
+    public void when_told_to_render_line_A_with_width_3_will_return_xAx()
     {
         var result = Diamond.RenderLine('A', 3);
         Assert.Equal(" A ", result);
+    }
+    [Fact]
+    public void when_told_to_render_line_B_with_width_3_will_return_BxB()
+    {
+        var result = Diamond.RenderLine('B', 3);
+        Assert.Equal("B B", result);
     }
 
     [Theory]
@@ -59,5 +87,36 @@ public class DiamondTests
     {
         var result = Diamond.GetColumnIndex(i, width);
         Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(2, 3)]
+    [InlineData(3, 5)]
+    public void when_told_to_GetWidth_for_numberOfCharacters_will_return_expectedWidthidth(
+        int numberOfCharacters,
+        int expectedWidth)
+    {
+        var width = Diamond.GetWidthFrom(numberOfCharacters);
+        Assert.Equal(expectedWidth, width);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(0, 2, 0)]
+    [InlineData(1, 2, 1)]
+    [InlineData(2, 2, 0)]
+    [InlineData(0, 5, 0)]
+    [InlineData(1, 5, 1)]
+    [InlineData(2, 5, 2)]
+    [InlineData(3, 5, 1)]
+    [InlineData(4, 5, 0)]
+    public void when_told_to_GetRowIndex_for_rowNumber_and_width_will_return_rowIndex(
+        int rowNumber,
+        int width,
+        int expectedRowIndex)
+    {
+        var rowIndex = Diamond.GetRowIndex(rowNumber, width);
+        Assert.Equal(expectedRowIndex, rowIndex);
     }
 }

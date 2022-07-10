@@ -6,9 +6,17 @@ public static class Diamond
 {
     private const int FirstCharacter = 'A';
 
-    public static string Run(string s)
+    public static string Run(char s)
     {
-        return s;
+        var characters = GetCharacters(s);
+        var width = GetWidthFrom(characters.Length);
+        var sb = new StringBuilder();
+        for (var i = 0; i < width; i++)
+        {
+            var x = GetRowIndex(i, width);
+            sb.AppendLine(RenderLine(characters[x], width));
+        }
+        return sb.ToString();
     }
 
     public static string GetCharacters(char s)
@@ -24,22 +32,32 @@ public static class Diamond
         return new string(result);
     }
 
-    public static string RenderLine(char character, int maxCharacterCount)
+    public static string RenderLine(char character, int width)
     {
-        var line = new StringBuilder();
-        for (int i = 0; i < maxCharacterCount; i++)
-        {
-            var columnIndex = GetColumnIndex(i, maxCharacterCount);
-            line.Append(GetCharacterForColumn(character, columnIndex));
-        }
-
-        return line.ToString();
+        return new string(GenerateLine(character, width).ToArray());
     }
 
-    public static int GetColumnIndex(int i, int width)
-    {
-        return Math.Abs(i - width / 2);
-    }
+    public static int GetColumnIndex(int i, int width) => Math.Abs(i - width / 2);
 
     public static char GetCharacterForColumn(char c, int i) => c - FirstCharacter == i ? c : ' ';
+
+    private static IEnumerable<char> GenerateLine(char character, int width)
+    {
+        for (var i = 0; i < width; i++)
+        {
+            var columnIndex = GetColumnIndex(i, width);
+            yield return GetCharacterForColumn(character, columnIndex);
+        }
+    }
+
+    public static int GetWidthFrom(int numberOfCharacters)
+    {
+        return numberOfCharacters * 2 - 1;
+    }
+
+    public static int GetRowIndex(int rowNumber, int width)
+    {
+        var halfWidth = width / 2;
+        return halfWidth - Math.Abs(rowNumber - halfWidth);
+    }
 }
