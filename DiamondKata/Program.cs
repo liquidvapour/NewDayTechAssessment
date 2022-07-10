@@ -1,4 +1,11 @@
 ﻿using DiamondKata;
 
 
-new DiamondApp(Console.Out, args).Run();
+try
+{
+    new DiamondApp(Console.Out, args).Run();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}

@@ -22,7 +22,7 @@ public class DiamondApp
     {
         if (_args.Length == 0)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Must pass a command line argument of one character of A through Z.");
         }
 
         if (_args[0].Length > 1)
