@@ -1,4 +1,6 @@
-﻿namespace DiamondKata.Tests;
+﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+
+namespace DiamondKata.Tests;
 
 public class DiamondRunTests
 {

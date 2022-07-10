@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using DiamondKata;
 
 
-Console.WriteLine("Hello, World!");
+new DiamondApp(Console.Out, args).Run();
