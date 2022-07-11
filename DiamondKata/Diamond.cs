@@ -16,6 +16,7 @@ public static class Diamond
             var x = GetRowIndex(i, width);
             sb.AppendLine(RenderLine(characters[x], width));
         }
+
         return sb.ToString();
     }
 
@@ -32,10 +33,7 @@ public static class Diamond
         return new string(result);
     }
 
-    public static string RenderLine(char character, int width)
-    {
-        return new string(GenerateLine(character, width).ToArray());
-    }
+    public static string RenderLine(char character, int width) => new(GenerateLine(character, width).ToArray());
 
     public static int GetColumnIndex(int i, int width) => Math.Abs(i - width / 2);
 
@@ -50,10 +48,7 @@ public static class Diamond
         }
     }
 
-    public static int GetWidthFrom(int numberOfCharacters)
-    {
-        return numberOfCharacters * 2 - 1;
-    }
+    public static int GetWidthFrom(int numberOfCharacters) => numberOfCharacters * 2 - 1;
 
     public static int GetRowIndex(int rowNumber, int width)
     {
